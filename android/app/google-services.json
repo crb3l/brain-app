@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "219214062860",
+    "firebase_url": "https://bigbrain-fa1c3-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "bigbrain-fa1c3",
+    "storage_bucket": "bigbrain-fa1c3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:219214062860:android:f6b825c56a05f271e11529",
+        "android_client_info": {
+          "package_name": "com.example.bigbrain"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbq4m6Pd3XGuXxPZ-3vHPjT4hJKr8yly0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
