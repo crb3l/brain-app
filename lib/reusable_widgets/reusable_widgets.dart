@@ -14,10 +14,11 @@ Image logoWidget(String imageName) {
   );
 }
 
-TextField reusableTextField(String text, IconData icon, bool isPasswordType,
-    TextEditingController controller) {
-  return TextField(
+TextFormField reusableTextFormField(String text, IconData icon,
+    bool isPasswordType, TextEditingController controller) {
+  return TextFormField(
     controller: controller,
+    validator: validateEmail,
     obscureText: isPasswordType,
     enableSuggestions: !isPasswordType,
     autocorrect: !isPasswordType,
@@ -70,4 +71,10 @@ Container signInSignUpButton(
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)))),
     ),
   );
+}
+
+String? validateEmail(String? formEmail) {
+  if (formEmail == null || formEmail.isEmpty)
+    return "E-mail address is requiered.";
+  return null;
 }

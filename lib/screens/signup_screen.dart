@@ -15,6 +15,7 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController _passwordTextController = TextEditingController();
   TextEditingController _emailTextController = TextEditingController();
+  final GlobalKey<FormState> _key = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,71 +28,75 @@ class _SignUpScreenState extends State<SignUpScreen> {
         //   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         // ),
       ),
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [
-          hexStringToColor("F0F0F2"),
-          // hexStringToColor("FFFFFF"),
-          hexStringToColor("FFD301")
-        ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(20, 80, 20, 0),
-            child: Column(
-              children: <Widget>[
-                SizedBox(
-                  height: 20,
-                ),
-                reusableTextField("Enter username", Icons.person_outline, false,
-                    _emailTextController),
-                SizedBox(
-                  height: 20,
-                ),
-                reusableTextField("Enter e-mail", Icons.email_outlined, false,
-                    _emailTextController),
-                SizedBox(
-                  height: 20,
-                ),
-                reusableTextField("Verify e-mail", Icons.email_outlined, false,
-                    _emailTextController),
-                SizedBox(
-                  height: 20,
-                ),
-                reusableTextField("Choose password(8-20 characters)",
-                    Icons.lock_outline, true, _passwordTextController),
-                SizedBox(
-                  height: 20,
-                ),
-                reusableTextField("Verify password", Icons.lock_outline, true,
-                    _passwordTextController),
-                SizedBox(
-                  height: 20,
-                ),
-                signInSignUpButton(context, false, () {
-                  FirebaseAuth.instance
-                      .createUserWithEmailAndPassword(
-                          email: _emailTextController.text,
-                          password: _passwordTextController.text)
-                      .then((value) {
-                    print("Created New Account");
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()));
-                  }).onError((error, stackTrace) {
-                    print("Error ${error.toString()}");
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                          content: Text("Error ${error.toString()}"),
-                          behavior: SnackBarBehavior.floating),
-                    );
-                  });
-
-                  // Navigator.push(context,
-                  //     MaterialPageRoute(builder: (context) => HomeScreen()));
-                }),
-                signInOption()
-              ],
+      body: Form(
+        key: _key,
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          decoration: BoxDecoration(
+              gradient: LinearGradient(colors: [
+            hexStringToColor("F0F0F2"),
+            // hexStringToColor("FFFFFF"),
+            hexStringToColor("FFD301")
+          ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(20, 80, 20, 0),
+              child: Column(
+                children: <Widget>[
+                  SizedBox(
+                    height: 20,
+                  ),
+                  reusableTextFormField("Enter username", Icons.person_outline,
+                      false, _emailTextController),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  reusableTextFormField("Enter e-mail", Icons.email_outlined,
+                      false, _emailTextController),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  reusableTextFormField("Verify e-mail", Icons.email_outlined,
+                      false, _emailTextController),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  reusableTextFormField("Choose password(8-20 characters)",
+                      Icons.lock_outline, true, _passwordTextController),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  reusableTextFormField("Verify password", Icons.lock_outline,
+                      true, _passwordTextController),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  signInSignUpButton(context, false, () {
+                    if (_key.currentState!.validate()) {
+                      FirebaseAuth.instance
+                          .createUserWithEmailAndPassword(
+                              email: _emailTextController.text,
+                              password: _passwordTextController.text)
+                          .then((value) {
+                        print("Created New Account");
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomeScreen()));
+                      }).onError((error, stackTrace) {
+                        print("Error ${error.toString()}");
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                              content: Text("Error ${error.toString()}"),
+                              behavior: SnackBarBehavior.floating),
+                        );
+                      });
+                    }
+                  }),
+                  signInOption()
+                ],
+              ),
             ),
           ),
         ),
