@@ -37,13 +37,13 @@ class _SignInScreenState extends State<SignInScreen> {
                 SizedBox(
                   height: 30,
                 ),
-                reusableTextFormField("Enter username/email",
-                    Icons.person_outline, false, _emailTextController),
+                mailTextFormField("Enter username/email", Icons.person_outline,
+                    _emailTextController),
                 SizedBox(
                   height: 20,
                 ),
-                reusableTextFormField("Enter password", Icons.lock_outline,
-                    false, _passwordTextController),
+                passwordTextFormField("Enter password", Icons.lock_outline,
+                    _passwordTextController),
                 SizedBox(
                   height: 20,
                 ),

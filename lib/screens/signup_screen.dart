@@ -15,6 +15,9 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController _passwordTextController = TextEditingController();
   TextEditingController _emailTextController = TextEditingController();
+  // TextEditingController _usernameTextController = TextEditingController();
+  TextEditingController _vpasswordTextController = TextEditingController();
+  TextEditingController _vemailTextController = TextEditingController();
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -44,31 +47,31 @@ class _SignUpScreenState extends State<SignUpScreen> {
               padding: EdgeInsets.fromLTRB(20, 80, 20, 0),
               child: Column(
                 children: <Widget>[
+                  // SizedBox(
+                  //   height: 20,
+                  // ),
+                  // reusableTextFormField("Enter username", Icons.person_outline,
+                  //     false, _usernameTextController),
                   SizedBox(
                     height: 20,
                   ),
-                  reusableTextFormField("Enter username", Icons.person_outline,
-                      false, _emailTextController),
+                  mailTextFormField("Enter e-mail", Icons.email_outlined,
+                      _emailTextController),
                   SizedBox(
                     height: 20,
                   ),
-                  reusableTextFormField("Enter e-mail", Icons.email_outlined,
-                      false, _emailTextController),
+                  mailTextFormField("Verify e-mail", Icons.email_outlined,
+                      _vemailTextController),
                   SizedBox(
                     height: 20,
                   ),
-                  reusableTextFormField("Verify e-mail", Icons.email_outlined,
-                      false, _emailTextController),
+                  passwordTextFormField("Choose password(8-20 characters)",
+                      Icons.lock_outline, _passwordTextController),
                   SizedBox(
                     height: 20,
                   ),
-                  reusableTextFormField("Choose password(8-20 characters)",
-                      Icons.lock_outline, true, _passwordTextController),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  reusableTextFormField("Verify password", Icons.lock_outline,
-                      true, _passwordTextController),
+                  passwordTextFormField("Verify password", Icons.lock_outline,
+                      _vpasswordTextController),
                   SizedBox(
                     height: 20,
                   ),
