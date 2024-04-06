@@ -36,12 +36,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
         child: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [
-            hexStringToColor("F0F0F2"),
-            // hexStringToColor("FFFFFF"),
-            hexStringToColor("FFD301")
-          ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+          color: Colors.purple,
+          // decoration: BoxDecoration(
+          //     gradient: LinearGradient(colors: [
+          //   hexStringToColor("F0F0F2"),
+          //   // hexStringToColor("FFFFFF"),
+          //   hexStringToColor("FFD301")
+          // ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
           child: SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.fromLTRB(20, 80, 20, 0),
@@ -52,56 +53,59 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   // ),
                   // reusableTextFormField("Enter username", Icons.person_outline,
                   //     false, _usernameTextController),
-                  SizedBox(
-                    height: 20,
-                  ),
                   mailTextFormField("Enter e-mail", Icons.email_outlined,
                       _emailTextController),
-                  // SizedBox(
-                  //   height: 20,
-                  // ),
-                  // mailTextFormField("Verify e-mail", Icons.email_outlined,
-                  //     _vemailTextController),
-                  SizedBox(
-                    height: 20,
+                  Center(
+                    child: Visibility(
+                        visible: errorMessage.isNotEmpty,
+                        child: Text(errorMessage,
+                            style: TextStyle(color: Colors.red))),
                   ),
-                  passwordTextFormField("Choose password(8-20 characters)",
-                      Icons.lock_outline, _passwordTextController),
                   SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
-                  passwordTextFormField("Confirm password", Icons.lock_outline,
+                  passwordTextFormField("Choose password", Icons.lock_outline,
+                      _passwordTextController),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  passwordConfirmTextFormField(
+                      "Confirm password",
+                      Icons.lock_outline,
+                      _passwordTextController,
                       _vpasswordTextController),
                   SizedBox(
                     height: 20,
                   ),
-                  signInSignUpButton(context, false, () {
+                  signInSignUpButton(context, false, () async {
                     if (_key.currentState!.validate()) {
-                      FirebaseAuth.instance
-                              .createUserWithEmailAndPassword(
-                                  email: _emailTextController.text,
-                                  password: _passwordTextController.text)
-                              .then((value) {
-                        print("Created New Account");
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HomeScreen()));
-                      })
-                          // .onError((error, stackTrace) {
-                          //   print("Error ${error.toString()}");
-                          //   ScaffoldMessenger.of(context).showSnackBar(
-                          //     SnackBar(
-                          //         content: Text("Error ${error.toString()}"),
-                          //         behavior: SnackBarBehavior.floating),
-                          //   );
-                          // })
-                          ;
+                      try {
+                        await FirebaseAuth.instance
+                            .createUserWithEmailAndPassword(
+                                email: _emailTextController.text,
+                                password: _passwordTextController.text)
+                            .then((value) {
+                          print("Created New Account");
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomeScreen()));
+                        });
+                        errorMessage = '';
+                      } on FirebaseAuthException catch (error) {
+                        errorMessage = error.message!;
+                      }
+                      // .onError((error, stackTrace) {
+                      //   print("Error ${error.toString()}");
+                      //   ScaffoldMessenger.of(context).showSnackBar(
+                      //     SnackBar(
+                      //         content: Text("Error ${error.toString()}"),
+                      //         behavior: SnackBarBehavior.floating),
+                      //   );
+                      // })
+                      ;
                     }
                   }),
-                  Center(
-                    child: Text(errorMessage),
-                  ),
                   signInOption()
                 ],
               ),

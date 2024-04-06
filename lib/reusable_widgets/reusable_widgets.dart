@@ -1,3 +1,4 @@
+// import 'dart:js_util';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -66,6 +67,43 @@ TextFormField passwordTextFormField(
       keyboardType: TextInputType.visiblePassword);
 }
 
+TextFormField passwordConfirmTextFormField(
+    String text,
+    IconData icon,
+    TextEditingController passwordController,
+    TextEditingController _vcontroller) {
+  return TextFormField(
+      controller: _vcontroller,
+//ma sinucid am stat 4 ore ca sa implementez asta pentru ca voiam sa fie implementata diferit fut-o pula de validare
+      validator: (value) {
+        if (value!.isEmpty) {
+          return "Please re-enter password.";
+        } else if (value != passwordController) {
+          return "Passwords do not match!";
+        } else {
+          return null;
+        }
+      },
+      obscureText: true,
+      cursorColor: Colors.white,
+      style: TextStyle(color: Colors.white.withOpacity(0.9)),
+      decoration: InputDecoration(
+        prefixIcon: Icon(
+          icon,
+          color: Colors.white70,
+        ),
+        labelText: text,
+        labelStyle: TextStyle(color: Colors.white.withOpacity(0.9)),
+        filled: true,
+        floatingLabelBehavior: FloatingLabelBehavior.never,
+        fillColor: Colors.white.withOpacity(0.3),
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(30.0),
+            borderSide: const BorderSide(width: 0, style: BorderStyle.none)),
+      ),
+      keyboardType: TextInputType.visiblePassword);
+}
+
 Container signInSignUpButton(
     BuildContext context, bool isLogin, Function onTap) {
   return Container(
@@ -97,7 +135,7 @@ Container signInSignUpButton(
 
 String? validateEmail(String? formEmail) {
   if (formEmail == null || formEmail.isEmpty)
-    return "E-mail address is requiered.";
+    return "E-mail address is required.";
 
   String pattern = r'\w+a\w+\.\w+';
   RegExp regex = RegExp(pattern);
@@ -107,14 +145,14 @@ String? validateEmail(String? formEmail) {
 
 String? validatePassword(String? formPassword) {
   if (formPassword == null || formPassword.isEmpty)
-    return "Password is requiered.";
+    return "Password is required.";
 
   String pattern =
       r'^(?=.*?[A-z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
   RegExp regex = RegExp(pattern);
   if (!regex.hasMatch(formPassword))
     return '''Password must be at least 8 characters, 
-include an uppercase letter, number and symbol.
-    ''';
+include an uppercase letter, a number and a symbol.''';
+
   return null;
 }

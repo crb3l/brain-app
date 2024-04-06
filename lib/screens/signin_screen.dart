@@ -22,12 +22,13 @@ class _SignInScreenState extends State<SignInScreen> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [
-          hexStringToColor("F0F0F2"),
-          // hexStringToColor("FFFFFF"),
-          hexStringToColor("FFD301")
-        ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+        color: Colors.purple,
+        // decoration: BoxDecoration(
+        //     gradient: LinearGradient(colors: [
+        //   hexStringToColor("F0F0F2"),
+        //   // hexStringToColor("FFFFFF"),
+        //   hexStringToColor("FFD301")
+        // ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.fromLTRB(
@@ -35,46 +36,54 @@ class _SignInScreenState extends State<SignInScreen> {
             child: Column(
               children: <Widget>[
                 logoWidget("assets/images/brain.png"),
+                Center(
+                  child:
+                      Text(errorMessage, style: TextStyle(color: Colors.red)),
+                ),
                 SizedBox(
                   height: 30,
                 ),
-                mailTextFormField("Enter username/email", Icons.person_outline,
-                    _emailTextController),
+                mailTextFormField(
+                    "Enter email", Icons.person_outline, _emailTextController),
                 SizedBox(
                   height: 20,
                 ),
                 passwordTextFormField("Enter password", Icons.lock_outline,
                     _passwordTextController),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
-                signInSignUpButton(context, true, () {
-                  FirebaseAuth.instance
-                          .signInWithEmailAndPassword(
-                              email: _emailTextController.text,
-                              password: _passwordTextController.text)
-                          .then((value) {
-                    Navigator.push((context),
-                        MaterialPageRoute(builder: (context) => HomeScreen()));
-                  })
-                      // .onError((error, stackTrace) {
-                      //   print(
-                      //       "Error ${error.toString()}"); //in cazul erorilor legate de emial gresit/parola gresita, firebase va da o eroare generica legata de credentialele auth pentru a nu leakui iinformatii legate de existenta adreseii de email
-                      //   ScaffoldMessenger.of(context).showSnackBar(
-                      //     SnackBar(
-                      //         content: (Text("Error! ${error.toString()}") ==
-                      //                 Text(
-                      //                     "Error [firebase_auth/invalid-credential] The supplied auth credential is incorrect, malformed or has expired."))
-                      //             ? Text("E-mail or password are incorrect!")
-                      //             : Text("Error! ${error.toString()}"),
-                      //         behavior: SnackBarBehavior.floating),
-                      //   );
-                      // })
-                      ;
+                signInSignUpButton(context, true, () async {
+                  try {
+                    await FirebaseAuth.instance
+                        .signInWithEmailAndPassword(
+                            email: _emailTextController.text,
+                            password: _passwordTextController.text)
+                        .then((value) {
+                      Navigator.push(
+                          (context),
+                          MaterialPageRoute(
+                              builder: (context) => HomeScreen()));
+                    });
+                    errorMessage = '';
+                  } on FirebaseAuthException catch (error) {
+                    errorMessage = error.message!;
+                  }
+                  // .onError((error, stackTrace) {
+                  //   print(
+                  //       "Error ${error.toString()}"); //in cazul erorilor legate de emial gresit/parola gresita, firebase va da o eroare generica legata de credentialele auth pentru a nu leakui iinformatii legate de existenta adreseii de email
+                  //   ScaffoldMessenger.of(context).showSnackBar(
+                  //     SnackBar(
+                  //         content: (Text("Error! ${error.toString()}") ==
+                  //                 Text(
+                  //                     "Error [firebase_auth/invalid-credential] The supplied auth credential is incorrect, malformed or has expired."))
+                  //             ? Text("E-mail or password are incorrect!")
+                  //             : Text("Error! ${error.toString()}"),
+                  //         behavior: SnackBarBehavior.floating),
+                  //   );
+                  // })
+                  ;
                 }),
-                Center(
-                  child: Text(errorMessage),
-                ),
                 signUpOption()
               ],
             ),
