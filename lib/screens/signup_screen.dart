@@ -17,8 +17,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController _emailTextController = TextEditingController();
   // TextEditingController _usernameTextController = TextEditingController();
   TextEditingController _vpasswordTextController = TextEditingController();
-  TextEditingController _vemailTextController = TextEditingController();
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
+  String errorMessage = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,11 +57,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   mailTextFormField("Enter e-mail", Icons.email_outlined,
                       _emailTextController),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  mailTextFormField("Verify e-mail", Icons.email_outlined,
-                      _vemailTextController),
+                  // SizedBox(
+                  //   height: 20,
+                  // ),
+                  // mailTextFormField("Verify e-mail", Icons.email_outlined,
+                  //     _vemailTextController),
                   SizedBox(
                     height: 20,
                   ),
@@ -70,7 +70,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   SizedBox(
                     height: 20,
                   ),
-                  passwordTextFormField("Verify password", Icons.lock_outline,
+                  passwordTextFormField("Confirm password", Icons.lock_outline,
                       _vpasswordTextController),
                   SizedBox(
                     height: 20,
@@ -78,25 +78,30 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   signInSignUpButton(context, false, () {
                     if (_key.currentState!.validate()) {
                       FirebaseAuth.instance
-                          .createUserWithEmailAndPassword(
-                              email: _emailTextController.text,
-                              password: _passwordTextController.text)
-                          .then((value) {
+                              .createUserWithEmailAndPassword(
+                                  email: _emailTextController.text,
+                                  password: _passwordTextController.text)
+                              .then((value) {
                         print("Created New Account");
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => HomeScreen()));
-                      }).onError((error, stackTrace) {
-                        print("Error ${error.toString()}");
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                              content: Text("Error ${error.toString()}"),
-                              behavior: SnackBarBehavior.floating),
-                        );
-                      });
+                      })
+                          // .onError((error, stackTrace) {
+                          //   print("Error ${error.toString()}");
+                          //   ScaffoldMessenger.of(context).showSnackBar(
+                          //     SnackBar(
+                          //         content: Text("Error ${error.toString()}"),
+                          //         behavior: SnackBarBehavior.floating),
+                          //   );
+                          // })
+                          ;
                     }
                   }),
+                  Center(
+                    child: Text(errorMessage),
+                  ),
                   signInOption()
                 ],
               ),

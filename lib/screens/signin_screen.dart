@@ -15,6 +15,7 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   TextEditingController _passwordTextController = TextEditingController();
   TextEditingController _emailTextController = TextEditingController();
+  String errorMessage = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,26 +50,31 @@ class _SignInScreenState extends State<SignInScreen> {
                 ),
                 signInSignUpButton(context, true, () {
                   FirebaseAuth.instance
-                      .signInWithEmailAndPassword(
-                          email: _emailTextController.text,
-                          password: _passwordTextController.text)
-                      .then((value) {
+                          .signInWithEmailAndPassword(
+                              email: _emailTextController.text,
+                              password: _passwordTextController.text)
+                          .then((value) {
                     Navigator.push((context),
                         MaterialPageRoute(builder: (context) => HomeScreen()));
-                  }).onError((error, stackTrace) {
-                    print(
-                        "Error ${error.toString()}"); //in cazul erorilor legate de emial gresit/parola gresita, firebase va da o eroare generica legata de credentialele auth pentru a nu leakui iinformatii legate de existenta adreseii de email
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                          content: (Text("Error! ${error.toString()}") ==
-                                  Text(
-                                      "Error [firebase_auth/invalid-credential] The supplied auth credential is incorrect, malformed or has expired."))
-                              ? Text("E-mail or password are incorrect!")
-                              : Text("Error! ${error.toString()}"),
-                          behavior: SnackBarBehavior.floating),
-                    );
-                  });
+                  })
+                      // .onError((error, stackTrace) {
+                      //   print(
+                      //       "Error ${error.toString()}"); //in cazul erorilor legate de emial gresit/parola gresita, firebase va da o eroare generica legata de credentialele auth pentru a nu leakui iinformatii legate de existenta adreseii de email
+                      //   ScaffoldMessenger.of(context).showSnackBar(
+                      //     SnackBar(
+                      //         content: (Text("Error! ${error.toString()}") ==
+                      //                 Text(
+                      //                     "Error [firebase_auth/invalid-credential] The supplied auth credential is incorrect, malformed or has expired."))
+                      //             ? Text("E-mail or password are incorrect!")
+                      //             : Text("Error! ${error.toString()}"),
+                      //         behavior: SnackBarBehavior.floating),
+                      //   );
+                      // })
+                      ;
                 }),
+                Center(
+                  child: Text(errorMessage),
+                ),
                 signUpOption()
               ],
             ),
