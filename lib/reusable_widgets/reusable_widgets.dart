@@ -10,6 +10,33 @@ Image logoWidget(String imageName) {
   );
 }
 
+TextFormField sampleTextFormField(
+    String text, IconData icon, TextEditingController controller) {
+  return TextFormField(
+    controller: controller,
+    obscureText: false,
+    enableSuggestions: true,
+    cursorColor: Colors.black,
+    style: TextStyle(color: Colors.black.withOpacity(0.9), height: 1.15),
+    decoration: InputDecoration(
+      prefixIcon: Icon(
+        icon,
+        color: Colors.black.withOpacity(0.6),
+      ),
+      labelText: text,
+      labelStyle: TextStyle(color: Colors.black.withOpacity(0.6)),
+      filled: true,
+      floatingLabelBehavior: FloatingLabelBehavior.never,
+      fillColor: Colors.white,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(20.0),
+        borderSide: const BorderSide(width: 0, style: BorderStyle.none),
+      ),
+    ),
+    keyboardType: TextInputType.emailAddress,
+  );
+}
+
 TextFormField mailTextFormField(
     String text, IconData icon, TextEditingController controller) {
   return TextFormField(
