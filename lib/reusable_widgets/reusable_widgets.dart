@@ -1,9 +1,4 @@
-// import 'dart:js_util';
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 
 Image logoWidget(String imageName) {
   return Image.asset(
@@ -71,14 +66,14 @@ TextFormField passwordConfirmTextFormField(
     String text,
     IconData icon,
     TextEditingController passwordController,
-    TextEditingController _vcontroller) {
+    TextEditingController passwordConfirmcontroller) {
   return TextFormField(
-      controller: _vcontroller,
+      controller: passwordConfirmcontroller,
 //ma sinucid am stat 4 ore ca sa implementez asta pentru ca voiam sa fie implementata diferit fut-o pula de validare
       validator: (value) {
         if (value!.isEmpty) {
           return "Please re-enter password.";
-        } else if (value != passwordController) {
+        } else if (value != passwordController.text) {
           return "Passwords do not match!";
         } else {
           return null;
@@ -115,11 +110,6 @@ Container signInSignUpButton(
       onPressed: () {
         onTap();
       },
-      child: Text(
-        isLogin ? 'LOG IN' : 'SIGN UP',
-        style: const TextStyle(
-            color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 16),
-      ),
       style: ButtonStyle(
           backgroundColor: MaterialStateProperty.resolveWith((states) {
             if (states.contains(MaterialState.pressed)) {
@@ -129,13 +119,19 @@ Container signInSignUpButton(
           }),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)))),
+      child: Text(
+        isLogin ? 'LOG IN' : 'SIGN UP',
+        style: const TextStyle(
+            color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 16),
+      ),
     ),
   );
 }
 
 String? validateEmail(String? formEmail) {
-  if (formEmail == null || formEmail.isEmpty)
+  if (formEmail == null || formEmail.isEmpty) {
     return "E-mail address is required.";
+  }
 
   String pattern = r'\w+a\w+\.\w+';
   RegExp regex = RegExp(pattern);
@@ -144,15 +140,17 @@ String? validateEmail(String? formEmail) {
 }
 
 String? validatePassword(String? formPassword) {
-  if (formPassword == null || formPassword.isEmpty)
+  if (formPassword == null || formPassword.isEmpty) {
     return "Password is required.";
+  }
 
   String pattern =
       r'^(?=.*?[A-z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
   RegExp regex = RegExp(pattern);
-  if (!regex.hasMatch(formPassword))
+  if (!regex.hasMatch(formPassword)) {
     return '''Password must be at least 8 characters, 
 include an uppercase letter, a number and a symbol.''';
+  }
 
   return null;
 }

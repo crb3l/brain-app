@@ -10,7 +10,7 @@ class FlashMessageScreen extends StatelessWidget {
         child: ElevatedButton(
           onPressed: () {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
+              const SnackBar(
                   content: Text("Flutter default SnackBar is showing."),
                   behavior: SnackBarBehavior.floating),
             );

@@ -1,7 +1,7 @@
 import 'package:bigbrain/screens/signin_screen.dart';
 import 'package:bigbrain/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 
 void main() async {
@@ -17,7 +17,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'Brain Exercise',
       theme: ThemeData(
         // This is the theme of your application.
         //

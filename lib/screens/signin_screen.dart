@@ -1,6 +1,5 @@
 import 'package:bigbrain/screens/home_screen.dart';
 import 'package:bigbrain/screens/signup_screen.dart';
-import 'package:bigbrain/utils/color_utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:bigbrain/reusable_widgets/reusable_widgets.dart';
@@ -13,8 +12,8 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  TextEditingController _passwordTextController = TextEditingController();
-  TextEditingController _emailTextController = TextEditingController();
+  final _passwordTextController = TextEditingController();
+  final _emailTextController = TextEditingController();
   String errorMessage = '';
   @override
   Widget build(BuildContext context) {
@@ -36,23 +35,31 @@ class _SignInScreenState extends State<SignInScreen> {
             child: Column(
               children: <Widget>[
                 logoWidget("assets/images/brain.png"),
-                Center(
-                  child:
-                      Text(errorMessage, style: TextStyle(color: Colors.red)),
-                ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 mailTextFormField(
                     "Enter email", Icons.person_outline, _emailTextController),
-                SizedBox(
-                  height: 20,
+                const SizedBox(
+                  height: 15,
                 ),
                 passwordTextFormField("Enter password", Icons.lock_outline,
                     _passwordTextController),
-                SizedBox(
+                const SizedBox(
+                  height: 2,
+                ),
+                Container(
+                    alignment: Alignment.centerLeft,
+                    padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
+                    child: Visibility(
+                        visible: errorMessage.isNotEmpty,
+                        child: Text(errorMessage,
+                            style: const TextStyle(color: Colors.red),
+                            textAlign: TextAlign.left))),
+                const SizedBox(
                   height: 10,
                 ),
+                //TODO password and email
                 signInSignUpButton(context, true, () async {
                   try {
                     await FirebaseAuth.instance
@@ -63,11 +70,15 @@ class _SignInScreenState extends State<SignInScreen> {
                       Navigator.push(
                           (context),
                           MaterialPageRoute(
-                              builder: (context) => HomeScreen()));
+                              builder: (context) => const HomeScreen()));
                     });
                     errorMessage = '';
                   } on FirebaseAuthException catch (error) {
                     errorMessage = error.message!;
+                    if (errorMessage ==
+                        " The supplied auth credential is incorrect, malformed or has expired.") {
+                      errorMessage = "Incorrect email or password.";
+                    }
                   }
                   // .onError((error, stackTrace) {
                   //   print(
@@ -82,7 +93,6 @@ class _SignInScreenState extends State<SignInScreen> {
                   //         behavior: SnackBarBehavior.floating),
                   //   );
                   // })
-                  ;
                 }),
                 signUpOption()
               ],
@@ -102,7 +112,7 @@ class _SignInScreenState extends State<SignInScreen> {
         GestureDetector(
           onTap: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => SignUpScreen()));
+                MaterialPageRoute(builder: (context) => const SignUpScreen()));
           },
           child: const Text(
             " Sign up",
