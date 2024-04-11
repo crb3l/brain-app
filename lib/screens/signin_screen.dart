@@ -70,7 +70,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       Navigator.push(
                           (context),
                           MaterialPageRoute(
-                              builder: (context) => const HomeScreen()));
+                              builder: (context) => HomeScreen()));
                     });
                     errorMessage = '';
                   } on FirebaseAuthException catch (error) {
