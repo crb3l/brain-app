@@ -19,6 +19,7 @@ class HomeScreen extends StatelessWidget {
     _getCategories();
     return Scaffold(
       backgroundColor: Colors.white,
+      // bottomNavigationBar: NavigationBar(),
       body: ListView(
         // pot sa o fac si listview in loc de column, depinde de cum voi vrea eu sa imi aranjez in pagina lucrurile
         //pana la urma asta am si facut
@@ -72,12 +73,14 @@ class HomeScreen extends StatelessWidget {
                         width: 75,
                         height: 75,
                         decoration: const BoxDecoration(
-                            color: Colors.white54, shape: BoxShape.circle),
+                            color: Colors.white, shape: BoxShape.circle),
                         child: Padding(
                           padding: const EdgeInsets.all(8),
                           child: SvgPicture.asset(categories[index].iconPath),
                         ),
                       ),
+                      //       GestureDetector(onTap: (){Navigator.push(context,
+                      // MaterialPageRoute(builder: (context) => categories[index].()));},), --- this is for screen/categories implementation
                       const SizedBox(
                         height: 5,
                       ),
