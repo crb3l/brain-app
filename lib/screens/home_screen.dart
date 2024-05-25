@@ -1,7 +1,10 @@
 import 'package:bigbrain/models/category_model.dart';
 import 'package:bigbrain/reusable_widgets/reusable_widgets.dart';
-//import 'package:bigbrain/screens/signin_screen.dart';
+import 'package:bigbrain/screens/signin_screen.dart';
+import 'package:bigbrain/screens/categories/memory_screen.dart';
+import 'package:bigbrain/screens/signup_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -29,11 +32,22 @@ class HomeScreen extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          _categoriesSection()
+          Container(
+            width: 300,
+            height: 400,
+            child: _categoriesSection(),
+          )
         ],
       ),
     );
   }
+
+  final Map<int, Widget Function(BuildContext)> screenMap = {
+    0: (context) => const SignUpScreen(),
+    1: (context) => const MemoryScreen(),
+    2: (context) => const SignInScreen()
+    // Map other indexes to their respective screens
+  };
 
   Column _categoriesSection() {
     return Column(
@@ -58,41 +72,49 @@ class HomeScreen extends StatelessWidget {
               width: 30,
             ),
             itemBuilder: (context, index) {
-              return Container(
-                  width: 150,
-                  decoration: BoxDecoration(
-                    color: categories[index].boxColor,
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(10),
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: screenMap[index]!,
                     ),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 75,
-                        height: 75,
-                        decoration: const BoxDecoration(
-                            color: Colors.white, shape: BoxShape.circle),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: SvgPicture.asset(categories[index].iconPath),
+                  ); //(context) => const MemoryScreen()));
+                },
+                child: Container(
+                    width: 150,
+                    decoration: BoxDecoration(
+                      color: categories[index].boxColor,
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 75,
+                          height: 75,
+                          decoration: const BoxDecoration(
+                              color: Colors.white, shape: BoxShape.circle),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: SvgPicture.asset(categories[index].iconPath),
+                          ),
                         ),
-                      ),
-                      //       GestureDetector(onTap: (){Navigator.push(context,
-                      // MaterialPageRoute(builder: (context) => categories[index].()));},), --- this is for screen/categories implementation
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        categories[index].name,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black,
-                            fontSize: 14),
-                      )
-                    ],
-                  ));
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          categories[index].name,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black,
+                              fontSize: 14),
+                        )
+                      ],
+                    )),
+              );
             },
           ),
         ),

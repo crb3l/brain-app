@@ -38,6 +38,7 @@ dependencies:
   firebase_core: ^2.27.2 #firebase core
   firebase_auth: ^4.18.0 #firebase auth from pub.dev
   flutter_svg: ^2.0.10+1
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   flutter_test:
