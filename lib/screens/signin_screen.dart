@@ -15,6 +15,12 @@ class _SignInScreenState extends State<SignInScreen> {
   final _passwordTextController = TextEditingController();
   final _emailTextController = TextEditingController();
   String errorMessage = '';
+
+  void _clearTextFields() {
+    _emailTextController.clear();
+    _passwordTextController.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,13 +78,23 @@ class _SignInScreenState extends State<SignInScreen> {
                           MaterialPageRoute(
                               builder: (context) => HomeScreen()));
                     });
-                    errorMessage = '';
+                    setState(() {
+                      errorMessage = '';
+                    });
+
+                    _clearTextFields();
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomeScreen()),
+                        (Route<dynamic> route) => false);
                   } on FirebaseAuthException catch (error) {
-                    errorMessage = error.message!;
-                    if (errorMessage ==
-                        " The supplied auth credential is incorrect, malformed or has expired.") {
-                      errorMessage = "Incorrect email or password.";
-                    }
+                    setState(() {
+                      errorMessage = error.message!;
+                      if (errorMessage ==
+                          "The supplied auth credential is incorrect, malformed or has expired.") {
+                        errorMessage = "Incorrect email or password.";
+                      }
+                    });
                   }
                   // .onError((error, stackTrace) {
                   //   print(
