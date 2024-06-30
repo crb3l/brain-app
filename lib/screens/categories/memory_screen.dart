@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
+import 'package:bigbrain/screens/home_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -78,6 +79,14 @@ class _MemoryScreenState extends State<MemoryScreen> {
         : const Color(0xFF212121);
     return Scaffold(
       appBar: AppBar(
+        //arata cam urat, dar asa merge direct inapoi in home screen in loc sa se tot rupa la cap cu jocul de cartonase
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.push((context),
+                MaterialPageRoute(builder: (context) => HomeScreen()));
+          },
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -87,23 +96,34 @@ class _MemoryScreenState extends State<MemoryScreen> {
       body: SafeArea(
         child: Column(
           children: <Widget>[
-            Expanded(
-              child: Center(
+            // Expanded(
+            //   child: Center(
+            //     child: Text(
+            //       'SELECT DIFFICULTY (for BEST TIME long press difficulty)',
+            //       style: TextStyle(
+            //         fontSize: _responsiveCoefficient / pow(4.5, 2),
+            //         color: (MemoryScreen._theme == 'dark')
+            //             ? Colors.white
+            //             : const Color(0xFF212121),
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            const Align(
+                alignment: Alignment.center,
                 child: Text(
-                  'SELECT DIFFICULTY (for BEST TIME long press difficulty)',
+                  "Select difficulty",
                   style: TextStyle(
-                    fontSize: _responsiveCoefficient / pow(4.5, 2),
-                    color: (MemoryScreen._theme == 'dark')
-                        ? Colors.white
-                        : const Color(0xFF212121),
+                    fontSize: 30,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black,
                   ),
-                ),
-              ),
-            ),
+                )),
             Expanded(
               child: Center(
-                child: Row(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <ValueListenableBuilder<double>>[
                     for (int index = 0; index < _difficulties.length; index++)
                       ValueListenableBuilder<double>(
@@ -111,8 +131,11 @@ class _MemoryScreenState extends State<MemoryScreen> {
                         builder: (BuildContext context, double scale,
                             Widget? child) {
                           return AnimatedContainer(
+                            width: 200,
                             margin: EdgeInsets.only(
-                                bottom: (scale == 1.0) ? 0.0 : 32.0),
+                                bottom: (scale == 1.0) ? 0.0 : 32.0,
+                                left: (scale == 1.0) ? 0.0 : 32.0,
+                                right: (scale == 1.0) ? 0.0 : 32.0),
                             duration: const Duration(milliseconds: 500),
                             curve: Curves.easeOutQuart,
                             child: Column(
@@ -188,9 +211,9 @@ class _MemoryScreenState extends State<MemoryScreen> {
                                   child: AnimatedContainer(
                                     padding: EdgeInsets.symmetric(
                                       vertical:
-                                          _responsiveCoefficient / pow(6.5, 2),
-                                      horizontal:
                                           _responsiveCoefficient / pow(5.5, 2),
+                                      horizontal:
+                                          _responsiveCoefficient / pow(6.5, 2),
                                     ),
                                     duration: const Duration(milliseconds: 800),
                                     curve: Curves.elasticOut,
@@ -224,6 +247,7 @@ class _MemoryScreenState extends State<MemoryScreen> {
                                   duration: const Duration(milliseconds: 600),
                                   curve: Curves.easeInOut,
                                   child: Text(
+                                    // best time on display
                                     'BEST: ${_bestTime[index]}',
                                     style: TextStyle(
                                       color: _color2[index],
@@ -263,41 +287,41 @@ class _MemoryScreenState extends State<MemoryScreen> {
             ),
           ],
         ),
-      ),
-      floatingActionButton: Stack(
-        children: <Widget>[
-          Positioned(
-            top: 12.0,
-            right: 0.0,
-            child: FloatingActionButton.extended(
-              backgroundColor:
-                  (MemoryScreen._theme == 'dark') ? Colors.black : Colors.white,
-              elevation: 3.0,
-              hoverElevation: 8.0,
-              onPressed: () {
-                _changeTheme();
-              },
-              label: Text(
-                MemoryScreen._theme.toUpperCase(),
-                style: TextStyle(
-                  fontFamily: 'Roboto',
-                  letterSpacing: 0.0,
-                  color: _complementColor,
-                  fontSize: _responsiveCoefficient / pow(6.5, 2),
-                ),
-              ),
-              icon: Icon(
-                (MemoryScreen._theme == 'dark')
-                    ? Icons.dark_mode_outlined
-                    : Icons.light_mode_outlined,
-                color: _complementColor,
-                size: _responsiveCoefficient / 25,
-              ),
-            ),
-          ),
-        ],
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+      ), //asta nu prea stiu ce e, dar ceva e
+      // floatingActionButton: Stack(
+      //   children: <Widget>[
+      //     Positioned(
+      //       top: 12.0,
+      //       right: 0.0,
+      //       child: FloatingActionButton.extended(
+      //         backgroundColor:
+      //             (MemoryScreen._theme == 'dark') ? Colors.black : Colors.white,
+      //         elevation: 3.0,
+      //         hoverElevation: 8.0,
+      //         onPressed: () {
+      //           _changeTheme();
+      //         },
+      //         label: Text(
+      //           MemoryScreen._theme.toUpperCase(),
+      //           style: TextStyle(
+      //             fontFamily: 'Roboto',
+      //             letterSpacing: 0.0,
+      //             color: _complementColor,
+      //             fontSize: _responsiveCoefficient / pow(6.5, 2),
+      //           ),
+      //         ),
+      //         icon: Icon(
+      //           (MemoryScreen._theme == 'dark')
+      //               ? Icons.dark_mode_outlined
+      //               : Icons.light_mode_outlined,
+      //           color: _complementColor,
+      //           size: _responsiveCoefficient / 25,
+      //         ),
+      //       ),
+      //     ),
+      //   ],
+      // ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
     );
   }
 }
@@ -952,44 +976,45 @@ class _GameState extends State<Game> with TickerProviderStateMixin {
                                     sigmaX: 16.8, sigmaY: 16.8),
                                 child: Stack(
                                   children: <Widget>[
-                                    Positioned(
-                                      top: 12.0,
-                                      right: 12.0,
-                                      child: FloatingActionButton.extended(
-                                        backgroundColor:
-                                            (MemoryScreen._theme == 'dark')
-                                                ? Colors.black
-                                                : Colors.white,
-                                        elevation: 3.0,
-                                        hoverElevation: 8.0,
-                                        onPressed: () {
-                                          _changeTheme();
-                                          setState(() {});
-                                        },
-                                        label: Text(
-                                          MemoryScreen._theme.toUpperCase(),
-                                          style: TextStyle(
-                                            fontFamily: 'Roboto',
-                                            letterSpacing: 0.0,
-                                            color:
-                                                (MemoryScreen._theme == 'dark')
-                                                    ? const Color(0xFFE0E0E0)
-                                                    : const Color(0xFF212121),
-                                            fontSize: _responsiveCoefficient /
-                                                pow(6.5, 2),
-                                          ),
-                                        ),
-                                        icon: Icon(
-                                          (MemoryScreen._theme == 'dark')
-                                              ? Icons.dark_mode_outlined
-                                              : Icons.light_mode_outlined,
-                                          color: (MemoryScreen._theme == 'dark')
-                                              ? const Color(0xFFE0E0E0)
-                                              : const Color(0xFF212121),
-                                          size: _responsiveCoefficient / 25,
-                                        ),
-                                      ),
-                                    ),
+                                    //buton pentru dark mode in meniul de pauza
+                                    // Positioned(
+                                    //   top: 12.0,
+                                    //   right: 12.0,
+                                    //   child: FloatingActionButton.extended(
+                                    //     backgroundColor:
+                                    //         (MemoryScreen._theme == 'dark')
+                                    //             ? Colors.black
+                                    //             : Colors.white,
+                                    //     elevation: 3.0,
+                                    //     hoverElevation: 8.0,
+                                    //     onPressed: () {
+                                    //       _changeTheme();
+                                    //       setState(() {});
+                                    //     },
+                                    //     label: Text(
+                                    //       MemoryScreen._theme.toUpperCase(),
+                                    //       style: TextStyle(
+                                    //         fontFamily: 'Roboto',
+                                    //         letterSpacing: 0.0,
+                                    //         color:
+                                    //             (MemoryScreen._theme == 'dark')
+                                    //                 ? const Color(0xFFE0E0E0)
+                                    //                 : const Color(0xFF212121),
+                                    //         fontSize: _responsiveCoefficient /
+                                    //             pow(6.5, 2),
+                                    //       ),
+                                    //     ),
+                                    //     icon: Icon(
+                                    //       (MemoryScreen._theme == 'dark')
+                                    //           ? Icons.dark_mode_outlined
+                                    //           : Icons.light_mode_outlined,
+                                    //       color: (MemoryScreen._theme == 'dark')
+                                    //           ? const Color(0xFFE0E0E0)
+                                    //           : const Color(0xFF212121),
+                                    //       size: _responsiveCoefficient / 25,
+                                    //     ),
+                                    //   ),
+                                    // ),
                                     AlertDialog(
                                       elevation: 0.0,
                                       shape: const RoundedRectangleBorder(

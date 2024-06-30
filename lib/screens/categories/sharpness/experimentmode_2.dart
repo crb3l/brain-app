@@ -150,10 +150,12 @@ class _ExperimentMode2State extends State<ExperimentMode2>
       for (int j = 0; j < _margins[i].length; j++) {
         if (((j + 1) + (i * 4)) == _items[i][j]) {
           _margins[i][j].value[2] = 1;
+          // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
           _margins[i][j].notifyListeners();
           cnt++;
         } else {
           _margins[i][j].value[2] = 0;
+          // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
           _margins[i][j].notifyListeners();
         }
       }

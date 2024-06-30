@@ -1,11 +1,13 @@
 import 'package:bigbrain/models/category_model.dart';
 import 'package:bigbrain/reusable_widgets/reusable_widgets.dart';
-import 'package:bigbrain/screens/signin_screen.dart';
+// import 'package:bigbrain/screens/signin_screen.dart';
 import 'package:bigbrain/screens/categories/memory_screen.dart';
 import 'package:bigbrain/screens/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:bigbrain/screens/categories/sharpness/sharpness.dart';
+import 'package:bigbrain/screens/categories/attention/attention.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -25,6 +27,7 @@ class HomeScreen extends StatelessWidget {
       // bottomNavigationBar: NavigationBar(),
       body: ListView(
         // pot sa o fac si listview in loc de column, depinde de cum voi vrea eu sa imi aranjez in pagina lucrurile
+        //update, am facut-o listview pana la urma hehe
         //pana la urma asta am si facut
         // crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -43,9 +46,9 @@ class HomeScreen extends StatelessWidget {
   }
 
   final Map<int, Widget Function(BuildContext)> screenMap = {
-    0: (context) => const SignUpScreen(),
+    0: (context) => const AttentionScreen(),
     1: (context) => const MemoryScreen(),
-    2: (context) => const SignInScreen()
+    2: (context) => const SharpnessScreen()
     // Map other indexes to their respective screens
   };
 
