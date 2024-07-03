@@ -10,13 +10,13 @@ class Result extends StatelessWidget {
   //Remark Logic
   String get resultPhrase {
     String resultText;
-    if (resultScore >= 41) {
+    if (resultScore >= 70) {
       resultText = 'You are awesome!';
       print(resultScore);
-    } else if (resultScore >= 31) {
+    } else if (resultScore >= 60) {
       resultText = 'Pretty likeable!';
       print(resultScore);
-    } else if (resultScore >= 21) {
+    } else if (resultScore >= 40) {
       resultText = 'You need to work more!';
     } else if (resultScore >= 1) {
       resultText = 'You need to work hard!';
@@ -39,19 +39,20 @@ class Result extends StatelessWidget {
             textAlign: TextAlign.center,
           ), //Text
           Text(
-            'Score ' '$resultScore',
+            'Score ' '$resultScore' '/80',
             style: const TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ), //Text
-          TextButton(
+          ElevatedButton(
             onPressed: resetHandler,
-            child: Container(
-              color: Colors.green,
-              padding: const EdgeInsets.all(14),
-              child: const Text(
-                'Restart Quiz',
-                style: TextStyle(color: Colors.white),
-              ),
+            style: ButtonStyle(
+                textStyle: WidgetStateProperty.all(
+                    const TextStyle(color: Colors.white)),
+                backgroundColor:
+                    WidgetStateProperty.all(const Color(0xFFef7c29))),
+            child: const Text(
+              'Restart Quiz',
+              style: TextStyle(color: Colors.white),
             ),
           ),
         ],

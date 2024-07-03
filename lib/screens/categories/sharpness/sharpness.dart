@@ -1,10 +1,7 @@
 import 'dart:math';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:bigbrain/screens/categories/sharpness/picselector.dart';
-import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bigbrain/screens/categories/sharpness/numbermode.dart';
 import 'package:bigbrain/screens/categories/sharpness/experimentmode.dart';
@@ -62,7 +59,8 @@ class _SharpnessScreenState extends State<SharpnessScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0.0,
-        title: const Text('Test your sharpness!'),
+        title: const Text('Test your sharpness!',
+            style: TextStyle(color: Colors.white)),
         centerTitle: true,
         systemOverlayStyle: SystemUiOverlayStyle.light.copyWith(
           statusBarColor: Colors.transparent,
@@ -103,118 +101,135 @@ class _SharpnessScreenState extends State<SharpnessScreen> {
                 builder: (BuildContext context, EdgeInsetsGeometry value,
                     Widget? child) {
                   return AnimatedContainer(
-                    alignment: Alignment.center,
-                    //butonul pentru Play Number Mode
-                    height: value == const EdgeInsets.all(16.0) ? 10 : 0,
-                    width: 150,
-                    duration: const Duration(milliseconds: 500),
-                    curve: Curves.easeInOutCubic,
-                    margin: value, //- testez cum e fara nu va speriati
-                    decoration: ShapeDecoration(
-                      color: (value ==
-                              const EdgeInsets.fromLTRB(48.0, 48.0, 24.0, 48.0))
-                          ? Colors.black.withOpacity(0.05)
-                          : Colors.white.withOpacity(0.05),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular((value ==
+                      alignment: Alignment.center,
+                      //butonul pentru Play Number Mode
+                      // height: value == const EdgeInsets.all(16.0) ? 10 : 0,
+                      height: 150,
+                      width: 200,
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.easeInOutCubic,
+                      margin: value,
+                      decoration: ShapeDecoration(
+                        color: (value ==
                                 const EdgeInsets.fromLTRB(
                                     48.0, 48.0, 24.0, 48.0))
-                            ? 12.0
-                            : 24.0)),
-                        side: BorderSide(
-                            color: (value ==
-                                    const EdgeInsets.fromLTRB(
-                                        48.0, 48.0, 24.0, 48.0))
-                                ? Colors.white12
-                                : Colors.transparent),
-                        //side: BorderSide(color: (value == const EdgeInsets.fromLTRB(48.0, 48.0, 24.0, 48.0)) ? Colors.transparent : Colors.white30),
+                            ? Colors.black.withOpacity(0.05)
+                            : Colors.white.withOpacity(0.05),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(
+                              (value ==
+                                      const EdgeInsets.fromLTRB(
+                                          48.0, 48.0, 24.0, 48.0))
+                                  ? 12.0
+                                  : 24.0)), //asta il face rotund
+                          side: BorderSide(
+                              color: (value ==
+                                      const EdgeInsets.fromLTRB(
+                                          48.0, 48.0, 24.0, 48.0))
+                                  ? Colors.white12
+                                  : Colors.transparent),
+                          //side: BorderSide(color: (value == const EdgeInsets.fromLTRB(48.0, 48.0, 24.0, 48.0)) ? Colors.transparent : Colors.white30),
+                        ),
                       ),
-                    ),
-                    child: InkWell(
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(24.0)),
-                      onTap: () {
-                        Navigator.of(context)
-                            .push(MyRoute(
-                                builder: (BuildContext context) =>
-                                    NumberMode(_displayAd)))
-                            .then((value) {
-                          SharedPreferences.getInstance()
-                              .then((SharedPreferences _sp) {
-                            if (_sp.getInt('_bestScore') != null) {
-                              _bestScore = _sp.getInt('_bestScore')!;
-                            }
-                            setState(() {});
+                      child: InkWell(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(24.0)),
+                        onTap: () {
+                          Navigator.of(context)
+                              .push(MyRoute(
+                                  builder: (BuildContext context) =>
+                                      NumberMode(_displayAd)))
+                              .then((value) {
+                            SharedPreferences.getInstance()
+                                .then((SharedPreferences _sp) {
+                              if (_sp.getInt('_bestScore') != null) {
+                                _bestScore = _sp.getInt('_bestScore')!;
+                              }
+                              setState(() {});
+                            });
                           });
-                        });
-                        // document.documentElement?.requestFullscreen();
-                      },
-                      // onHover: (bool a) {
-                      //   if (a) {
-                      //     _margin2.value =
-                      //         const EdgeInsets.fromLTRB(24.0, 48.0, 48.0, 48.0);
-                      //     _margin1.value =
-                      //         const EdgeInsets.fromLTRB(8.0, 8.0, 4.0, 8.0);
-                      //   } else {
-                      //     _margin2.value =
-                      //         const EdgeInsets.fromLTRB(8.0, 16.0, 16.0, 16.0);
-                      //     _margin1.value =
-                      //         const EdgeInsets.fromLTRB(16.0, 16.0, 8.0, 16.0);
-                      //   }
-                      // },
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: <Widget>[
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <AnimatedDefaultTextStyle>[
-                              AnimatedDefaultTextStyle(
-                                duration: const Duration(milliseconds: 500),
-                                curve: Curves.easeInOutCubic,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontFamily: 'Manrope',
-                                  color: Colors.white,
-                                  fontSize:
-                                      (sqrt(MediaQuery.of(context).size.width) *
+                          // document.documentElement?.requestFullscreen();
+                        },
+                        // onHover: (bool a) {
+                        //   if (a) {
+                        //     _margin2.value =
+                        //         const EdgeInsets.fromLTRB(24.0, 48.0, 48.0, 48.0);
+                        //     _margin1.value =
+                        //         const EdgeInsets.fromLTRB(8.0, 8.0, 4.0, 8.0);
+                        //   } else {
+                        //     _margin2.value =
+                        //         const EdgeInsets.fromLTRB(8.0, 16.0, 16.0, 16.0);
+                        //     _margin1.value =
+                        //         const EdgeInsets.fromLTRB(16.0, 16.0, 8.0, 16.0);
+                        //   }
+                        // },
+                        child: Container(
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular((value ==
+                                      const EdgeInsets.fromLTRB(
+                                          48.0, 48.0, 24.0, 48.0))
+                                  ? 12.0
+                                  : 24.0),
+                            ),
+                          ),
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: <Widget>[
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <AnimatedDefaultTextStyle>[
+                                  AnimatedDefaultTextStyle(
+                                    duration: const Duration(milliseconds: 500),
+                                    curve: Curves.easeInOutCubic,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontFamily: 'Manrope',
+                                      color: Colors.white,
+                                      fontSize: (sqrt(MediaQuery.of(context)
+                                                  .size
+                                                  .width) *
                                               sqrt(MediaQuery.of(context)
                                                   .size
                                                   .height)) /
                                           16,
-                                  letterSpacing: (value ==
-                                          const EdgeInsets.fromLTRB(
-                                              8.0, 8.0, 4.0, 8.0))
-                                      ? 4.0
-                                      : (value ==
+                                      letterSpacing: (value ==
                                               const EdgeInsets.fromLTRB(
-                                                  48.0, 48.0, 24.0, 48.0))
-                                          ? -3.0
-                                          : 0.0,
-                                  shadows: const <Shadow>[
-                                    Shadow(
-                                      color: Colors.black45,
-                                      offset: Offset(2.0, 2.0),
-                                      blurRadius: 2.0,
+                                                  8.0, 8.0, 4.0, 8.0))
+                                          ? 4.0
+                                          : (value ==
+                                                  const EdgeInsets.fromLTRB(
+                                                      48.0, 48.0, 24.0, 48.0))
+                                              ? -3.0
+                                              : 0.0,
+                                      shadows: const <Shadow>[
+                                        Shadow(
+                                          color: Colors.black45,
+                                          offset: Offset(2.0, 2.0),
+                                          blurRadius: 2.0,
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                                child: const Text(
-                                  'Play\nNumber\nMode',
-                                ),
+                                    child: const Text(
+                                      'Play\nNumber\nMode',
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Positioned(
+                                bottom: 12.0,
+                                child: Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: Text(
+                                        'Best score: ${(_bestScore == -1) ? ('-') : _bestScore}',
+                                        style: const TextStyle(
+                                            color: Colors.white))),
                               ),
                             ],
                           ),
-                          Positioned(
-                            bottom: 12.0,
-                            child: Align(
-                                alignment: Alignment.bottomCenter,
-                                child: Text(
-                                    'Best score: ${(_bestScore == -1) ? ('-') : _bestScore}')),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
+                        ),
+                      ));
                 },
               ),
             ),

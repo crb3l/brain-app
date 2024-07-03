@@ -21,20 +21,24 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Brain Exercise',
-      themeMode: ThemeMode.dark,
+      // themeMode: ThemeMode.dark,
       color: Colors.black,
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        pageTransitionsTheme: const PageTransitionsTheme(
-            builders: <TargetPlatform, PageTransitionsBuilder>{
-              TargetPlatform.windows: CupertinoPageTransitionsBuilder(),
-              TargetPlatform.fuchsia: CupertinoPageTransitionsBuilder(),
-              TargetPlatform.linux: CupertinoPageTransitionsBuilder(),
-              TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
-              TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
-              TargetPlatform.android: CupertinoPageTransitionsBuilder(),
-            }),
-      ),
+      theme: ThemeData().copyWith(
+          colorScheme: ThemeData()
+              .colorScheme
+              .copyWith(secondary: const Color(0xFFcc0066))),
+      // darkTheme: ThemeData(
+      //   brightness: Brightness.dark,
+      //   pageTransitionsTheme: const PageTransitionsTheme(
+      //       builders: <TargetPlatform, PageTransitionsBuilder>{
+      //         TargetPlatform.windows: CupertinoPageTransitionsBuilder(),
+      //         TargetPlatform.fuchsia: CupertinoPageTransitionsBuilder(),
+      //         TargetPlatform.linux: CupertinoPageTransitionsBuilder(),
+      //         TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
+      //         TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+      //         TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+      //       }),
+      // ),
       home: AuthCheck(),
     );
   }
@@ -47,13 +51,15 @@ class AuthCheck extends StatelessWidget {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         } else if (snapshot.hasData) {
           return HomeScreen();
         } else {
-          return SignInScreen();
+          return const SignInScreen();
         }
       },
     );
   }
 }
+
+//https://www.color-hex.com/color-palette/50105 pentru paleta de culori

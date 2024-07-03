@@ -18,7 +18,7 @@ class CategoryModel {
       CategoryModel(
         name: 'Attention',
         iconPath: 'assets/icons/attention.svg',
-        boxColor: Color(0xff92A3FD),
+        boxColor: const Color(0xFFef7c29),
       ),
     );
 
@@ -26,7 +26,7 @@ class CategoryModel {
       CategoryModel(
         name: 'Memory',
         iconPath: 'assets/icons/memory.svg',
-        boxColor: Color(0xffC58BF2),
+        boxColor: const Color(0xff69b64f),
       ),
     );
 
@@ -34,7 +34,7 @@ class CategoryModel {
       CategoryModel(
         name: 'Sharpness',
         iconPath: 'assets/icons/sharpness.svg',
-        boxColor: Color(0xff92A3FD),
+        boxColor: const Color(0xff30b4c9),
       ),
     );
 

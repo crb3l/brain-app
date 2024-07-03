@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 
 import './answer.dart';
 import './question.dart';
+import './story.dart';
 
 class Quiz extends StatelessWidget {
   final List<Map<String, Object>> questions;
   final int questionIndex;
   final Function answerQuestion;
 
-  const Quiz({
-    super.key,
-    required this.questions,
-    required this.answerQuestion,
-    required this.questionIndex,
-  });
+  const Quiz(
+      {super.key,
+      required this.questions,
+      required this.answerQuestion,
+      required this.questionIndex});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class Quiz extends StatelessWidget {
             .map((answer) {
           return Answer(
               () => answerQuestion(answer['score']), answer['text'].toString());
-        }).toList()
+        })
       ],
     );
   }
