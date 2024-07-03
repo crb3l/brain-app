@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import './chapter.dart';
 
+// ignore: must_be_immutable
 class Story extends StatelessWidget {
   final List<Map<String, Object>> story;
   final int storyIndex;

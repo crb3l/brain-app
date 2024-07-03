@@ -986,24 +986,24 @@ class _NumberModeState extends State<NumberMode>
                 centerTitle: true,
                 elevation: 0.0,
                 backgroundColor: Colors.transparent,
-                actions: <TextButton>[
-                  TextButton.icon(
-                    icon: Icon(
-                      (_medium == Colors.grey.shade900)
-                          ? Icons.dark_mode_outlined
-                          : Icons.light_mode_outlined,
-                      color: _complement,
-                    ),
-                    onPressed: () => _changeTheme(),
-                    label: Text(
-                      (_medium == Colors.grey.shade900)
-                          ? 'Dark\nTheme'
-                          : 'Light\nTheme',
-                      style: TextStyle(color: _complement),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ],
+                // actions: <TextButton>[ //TODO DARK THEME
+                //   TextButton.icon(
+                //     icon: Icon(
+                //       (_medium == Colors.grey.shade900)
+                //           ? Icons.dark_mode_outlined
+                //           : Icons.light_mode_outlined,
+                //       color: _complement,
+                //     ),
+                //     onPressed: () => _changeTheme(),
+                //     label: Text(
+                //       (_medium == Colors.grey.shade900)
+                //           ? 'Dark\nTheme'
+                //           : 'Light\nTheme',
+                //       style: TextStyle(color: _complement),
+                //       textAlign: TextAlign.center,
+                //     ),
+                //   ),
+                // ],
               ),
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.centerFloat,

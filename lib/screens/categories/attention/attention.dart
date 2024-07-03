@@ -61,7 +61,7 @@ class _AttentionScreenState extends State<AttentionScreen> {
       ],
     },
     {
-      'questionText': 'What day of the week does is it?',
+      'questionText': 'What day of the week is it?',
       'answers': [
         {'text': 'Saturday', 'score': -2},
         {'text': 'Sunday', 'score': 10},

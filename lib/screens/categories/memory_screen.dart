@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyRoute extends CupertinoPageRoute {
+  // ignore: use_super_parameters
   MyRoute({dynamic builder}) : super(builder: builder);
   @override
   Duration get transitionDuration => const Duration(milliseconds: 700);
@@ -23,14 +24,20 @@ class _MemoryScreenState extends State<MemoryScreen> {
   final List<String> _difficulties = <String>['EASY', 'CASUAL', 'VETERAN'],
       _bestTime = <String>['-', '-', '-'];
 
-  late Color _complementColor;
+  late Color _complementColor = Colors.black;
+
+  final List<Color> _complementColor1 = <Color>[
+    const Color(0xff9ccc65),
+    const Color(0xff43a047),
+    const Color(0xff388e3c)
+  ];
 
   late double _responsiveCoefficient;
 
   final List<Color> _color2 = <Color>[
-    const Color(0xFF2979FF),
-    const Color(0xFFFFD700),
-    const Color(0xFFFF4500)
+    const Color(0xff9ccc65),
+    const Color(0xff43a047),
+    const Color(0xff388e3c)
   ];
 
   final List<ValueNotifier<double>> _scale = <ValueNotifier<double>>[
@@ -74,14 +81,15 @@ class _MemoryScreenState extends State<MemoryScreen> {
   Widget build(BuildContext context) {
     _responsiveCoefficient = sqrt(MediaQuery.of(context).size.width) *
         sqrt(MediaQuery.of(context).size.height);
-    _complementColor = (MemoryScreen._theme == 'dark')
-        ? const Color(0xFFBDBDBD)
-        : const Color(0xFF212121);
+    //FOR DARK THEME TODO
+    // _complementColor = (MemoryScreen._theme == 'dark')
+    //     ? const Color(0xFFBDBDBD)
+    //     : const Color(0xFF212121);
     return Scaffold(
       appBar: AppBar(
         //arata cam urat, dar asa merge direct inapoi in home screen in loc sa se tot rupa la cap cu jocul de cartonase
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.push((context),
                 MaterialPageRoute(builder: (context) => HomeScreen()));
@@ -90,9 +98,10 @@ class _MemoryScreenState extends State<MemoryScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      backgroundColor: (MemoryScreen._theme == 'dark')
-          ? const Color(0xFF212121)
-          : const Color(0xFFBDBDBD),
+      backgroundColor: Colors.white,
+      // (MemoryScreen._theme == 'dark')
+      //     ? const Color(0xFF212121)
+      //     : const Color(0xFFBDBDBD),
       body: SafeArea(
         child: Column(
           children: <Widget>[
@@ -221,7 +230,7 @@ class _MemoryScreenState extends State<MemoryScreen> {
                                     transformAlignment: Alignment.bottomCenter,
                                     decoration: BoxDecoration(
                                       color: (scale == 1.0)
-                                          ? _complementColor
+                                          ? _complementColor1[index] //TODO
                                           : _color2[index],
                                       borderRadius: BorderRadius.all(
                                         Radius.circular(
@@ -232,7 +241,7 @@ class _MemoryScreenState extends State<MemoryScreen> {
                                           blurRadius: 12.0,
                                           spreadRadius: 3.0,
                                           color: (scale == 1.0)
-                                              ? _complementColor
+                                              ? _complementColor1[index]
                                                   .withOpacity(0.4)
                                               : _color2[index].withOpacity(0.4),
                                         ),
@@ -479,7 +488,7 @@ class _GameState extends State<Game> with TickerProviderStateMixin {
         });
       }
     });
-    WidgetsBinding.instance!.addPostFrameCallback((Duration timeStamp) {
+    WidgetsBinding.instance /*!*/ .addPostFrameCallback((Duration timeStamp) {
       Timer(const Duration(milliseconds: 500), () {
         for (int i = 0; i < _dimension; i++) {
           _startAnimations[i].reverse();
@@ -562,9 +571,10 @@ class _GameState extends State<Game> with TickerProviderStateMixin {
     _iconSize = _responsiveCoefficient / _dimension * 2;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: (MemoryScreen._theme == 'dark')
-            ? Colors.black
-            : const Color(0xFFE0E0E0),
+        backgroundColor: Colors.white,
+        // (MemoryScreen._theme == 'dark')    TODO dark theme
+        //     ? Colors.black
+        //     : const Color(0xFFE0E0E0),
         appBar: null,
         body: Stack(
           children: <Widget>[
@@ -591,7 +601,7 @@ class _GameState extends State<Game> with TickerProviderStateMixin {
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
                               Text(
-                                'You crazy son of a bitch, you did it.',
+                                'Congratulations on completeing the hardest level!',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 16.0,

@@ -30,54 +30,61 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _getCategories();
-    return Scaffold(
-      key: _scaffoldKey,
-      backgroundColor: Colors.white,
-      // bottomNavigationBar: NavigationBar(),
-      drawer: Drawer(
-          child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          DrawerHeader(
-            decoration:
-                BoxDecoration(color: Theme.of(context).colorScheme.secondary),
-            child: const Text(
-              'Menu',
-              style: TextStyle(color: Colors.white, fontSize: 30),
+    return PopScope(
+      canPop: true,
+      onPopInvoked: (bool didPop) async {
+        if (didPop) return;
+      },
+      child: Scaffold(
+        key: _scaffoldKey,
+        backgroundColor: Colors.white,
+        // bottomNavigationBar: NavigationBar(),
+        drawer: Drawer(
+            child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              decoration:
+                  BoxDecoration(color: Theme.of(context).colorScheme.secondary),
+              child: const Text(
+                'Menu',
+                style: TextStyle(color: Colors.white, fontSize: 30),
+              ),
             ),
-          ),
-          ...screenMap.entries.map((entry) {
-            int index = entry.key;
-            Widget Function(BuildContext) builder = entry.value;
-            return Container(
-              margin: const EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                border: Border.all(color: categories[index].boxColor, width: 2),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: ListTile(
-                title: Text(categories[index].name),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: builder),
-                  );
-                },
-              ),
-            );
-          }),
-        ],
-      )),
-      body: Column(
-        children: [
-          _welcomeBox(context),
-          const SizedBox(
-            height: 20,
-          ),
-          Expanded(
-            child: _categoriesSection(context),
-          )
-        ],
+            ...screenMap.entries.map((entry) {
+              int index = entry.key;
+              Widget Function(BuildContext) builder = entry.value;
+              return Container(
+                margin: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  border:
+                      Border.all(color: categories[index].boxColor, width: 2),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: ListTile(
+                  title: Text(categories[index].name),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: builder),
+                    );
+                  },
+                ),
+              );
+            }),
+          ],
+        )),
+        body: Column(
+          children: [
+            _welcomeBox(context),
+            const SizedBox(
+              height: 20,
+            ),
+            Expanded(
+              child: _categoriesSection(context),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -150,7 +157,7 @@ class HomeScreen extends StatelessWidget {
                           categories[index].name,
                           style: const TextStyle(
                               fontWeight: FontWeight.w400,
-                              color: Colors.black,
+                              color: Colors.white,
                               fontSize: 14),
                         )
                       ],

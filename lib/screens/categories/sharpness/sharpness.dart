@@ -55,12 +55,12 @@ class _SharpnessScreenState extends State<SharpnessScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade900,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0.0,
         title: const Text('Test your sharpness!',
-            style: TextStyle(color: Colors.white)),
+            style: TextStyle(color: Colors.black)),
         centerTitle: true,
         systemOverlayStyle: SystemUiOverlayStyle.light.copyWith(
           statusBarColor: Colors.transparent,
@@ -105,7 +105,7 @@ class _SharpnessScreenState extends State<SharpnessScreen> {
                       //butonul pentru Play Number Mode
                       // height: value == const EdgeInsets.all(16.0) ? 10 : 0,
                       height: 150,
-                      width: 200,
+                      width: 300,
                       duration: const Duration(milliseconds: 500),
                       curve: Curves.easeInOutCubic,
                       margin: value,
@@ -114,7 +114,7 @@ class _SharpnessScreenState extends State<SharpnessScreen> {
                                 const EdgeInsets.fromLTRB(
                                     48.0, 48.0, 24.0, 48.0))
                             ? Colors.black.withOpacity(0.05)
-                            : Colors.white.withOpacity(0.05),
+                            : const Color(0xff30b4c9).withOpacity(0.8),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(
                               (value ==
@@ -127,7 +127,7 @@ class _SharpnessScreenState extends State<SharpnessScreen> {
                                       const EdgeInsets.fromLTRB(
                                           48.0, 48.0, 24.0, 48.0))
                                   ? Colors.white12
-                                  : Colors.transparent),
+                                  : const Color(0xff30b4c9)),
                           //side: BorderSide(color: (value == const EdgeInsets.fromLTRB(48.0, 48.0, 24.0, 48.0)) ? Colors.transparent : Colors.white30),
                         ),
                       ),
@@ -242,14 +242,14 @@ class _SharpnessScreenState extends State<SharpnessScreen> {
                     //butonul pentru Play Picture Mode
                     duration: const Duration(milliseconds: 500),
                     height: 150,
-                    width: 200,
+                    width: 300,
                     curve: Curves.easeInOutCubic,
                     margin: value,
                     decoration: ShapeDecoration(
                       color: (value ==
                               const EdgeInsets.fromLTRB(24.0, 48.0, 48.0, 48.0))
                           ? Colors.black.withOpacity(0.05)
-                          : Colors.white.withOpacity(0.05),
+                          : const Color(0xff30b4c9).withOpacity(0.8),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular((value ==
                                 const EdgeInsets.fromLTRB(
@@ -261,7 +261,7 @@ class _SharpnessScreenState extends State<SharpnessScreen> {
                                     const EdgeInsets.fromLTRB(
                                         24.0, 48.0, 48.0, 48.0))
                                 ? Colors.white12
-                                : Colors.transparent),
+                                : const Color(0xff30b4c9)),
                         //side: BorderSide(color: (value == const EdgeInsets.fromLTRB(24.0, 48.0, 48.0, 48.0)) ? Colors.transparent : Colors.white30),
                       ),
                     ),

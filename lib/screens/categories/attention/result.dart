@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bigbrain/screens/home_screen.dart';
 
 class Result extends StatelessWidget {
   final int resultScore;
@@ -11,17 +12,17 @@ class Result extends StatelessWidget {
   String get resultPhrase {
     String resultText;
     if (resultScore >= 70) {
-      resultText = 'You are awesome!';
+      resultText = 'Awesome!';
       print(resultScore);
     } else if (resultScore >= 60) {
-      resultText = 'Pretty likeable!';
+      resultText = 'Pretty good!';
       print(resultScore);
     } else if (resultScore >= 40) {
-      resultText = 'You need to work more!';
+      resultText = 'You need more practice!';
     } else if (resultScore >= 1) {
-      resultText = 'You need to work hard!';
+      resultText = 'You definitely need more practice!';
     } else {
-      resultText = 'This is a poor score!';
+      resultText = 'What happened?';
       print(resultScore);
     }
     return resultText;
@@ -37,12 +38,13 @@ class Result extends StatelessWidget {
             resultPhrase,
             style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
-          ), //Text
+          ),
           Text(
             'Score ' '$resultScore' '/80',
             style: const TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
-          ), //Text
+          ),
+          const SizedBox(height: 100),
           ElevatedButton(
             onPressed: resetHandler,
             style: ButtonStyle(
@@ -52,6 +54,21 @@ class Result extends StatelessWidget {
                     WidgetStateProperty.all(const Color(0xFFef7c29))),
             child: const Text(
               'Restart Quiz',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              await Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => HomeScreen()));
+            },
+            style: ButtonStyle(
+                textStyle: WidgetStateProperty.all(
+                    const TextStyle(color: Colors.white)),
+                backgroundColor:
+                    WidgetStateProperty.all(const Color(0xFFef7c29))),
+            child: const Text(
+              'To home',
               style: TextStyle(color: Colors.white),
             ),
           ),

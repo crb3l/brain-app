@@ -686,7 +686,7 @@ class _PictureModeState extends State<PictureMode>
                           },
                           style: TextButton.styleFrom(
                             foregroundColor: Colors.white,
-                            backgroundColor: Colors.grey.shade900,
+                            backgroundColor: const Color(0xff30b4c9),
                             shape: const RoundedRectangleBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(512.0))),
@@ -702,7 +702,7 @@ class _PictureModeState extends State<PictureMode>
                           },
                           style: TextButton.styleFrom(
                             foregroundColor: Colors.white,
-                            backgroundColor: Colors.grey.shade900,
+                            backgroundColor: const Color(0xff30b4c9),
                             shape: const RoundedRectangleBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(512.0))),
@@ -742,11 +742,13 @@ class _PictureModeState extends State<PictureMode>
           Scaffold(
             backgroundColor: Colors.black,
             appBar: AppBar(
+              iconTheme: const IconThemeData(color: Colors.white),
               title: ValueListenableBuilder<int>(
                 valueListenable: _moveCnt,
                 builder: (BuildContext context, int value, Widget? child) {
                   return Text('MOVES: $value',
-                      style: TextStyle(fontSize: _size / 24));
+                      style:
+                          TextStyle(fontSize: _size / 24, color: Colors.white));
                 },
               ),
               bottom: PreferredSize(
@@ -774,7 +776,7 @@ class _PictureModeState extends State<PictureMode>
                 Container(
                   padding: EdgeInsets.all(_size / 60),
                   decoration: const ShapeDecoration(
-                      color: Colors.black38,
+                      color: Colors.white,
                       shape: RoundedRectangleBorder(
                           borderRadius:
                               BorderRadius.all(Radius.circular(96.0)))),
@@ -864,7 +866,8 @@ class _PictureModeState extends State<PictureMode>
                                         },
                                         style: TextButton.styleFrom(
                                           foregroundColor: Colors.white,
-                                          backgroundColor: Colors.grey.shade900,
+                                          backgroundColor:
+                                              const Color(0xff30b4c9),
                                           shape: const RoundedRectangleBorder(
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(512.0))),
@@ -881,7 +884,8 @@ class _PictureModeState extends State<PictureMode>
                                         },
                                         style: TextButton.styleFrom(
                                           foregroundColor: Colors.white,
-                                          backgroundColor: Colors.grey.shade900,
+                                          backgroundColor:
+                                              const Color(0xff30b4c9),
                                           shape: const RoundedRectangleBorder(
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(512.0))),
