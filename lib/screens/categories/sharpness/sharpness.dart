@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:bigbrain/screens/categories/sharpness/picselector.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bigbrain/screens/categories/sharpness/numbermode.dart';
-import 'package:bigbrain/screens/categories/sharpness/experimentmode.dart';
 
 class MyRoute extends MaterialPageRoute {
   MyRoute({dynamic builder}) : super(builder: builder);
@@ -59,7 +58,7 @@ class _SharpnessScreenState extends State<SharpnessScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0.0,
-        title: const Text('Test your sharpness!',
+        title: const Text('Sharpen your thinking!',
             style: TextStyle(color: Colors.black)),
         centerTitle: true,
         systemOverlayStyle: SystemUiOverlayStyle.light.copyWith(
@@ -94,7 +93,7 @@ class _SharpnessScreenState extends State<SharpnessScreen> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Expanded>[
+          children: <Widget>[
             Expanded(
               child: ValueListenableBuilder<EdgeInsetsGeometry>(
                 valueListenable: _margin1,
@@ -325,6 +324,37 @@ class _SharpnessScreenState extends State<SharpnessScreen> {
                     ),
                   );
                 },
+              ),
+            ),
+            Container(
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  onPressed: () => showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text('Instructions'),
+                      content: const Text(
+                          'This is a puzzle. Select which version of the game you want to play, either with pictures or with numbers (numbers is easier) and start playing. Try to get a good time and a low number of moves!\n\nThe lower the better.\nGood luck!'),
+                      actions: [
+                        TextButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: const Text('Understood'))
+                      ],
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                      shape: ContinuousRectangleBorder(
+                          borderRadius: BorderRadius.circular(5)),
+                      textStyle: const TextStyle(color: Colors.white),
+                      backgroundColor:
+                          const Color.fromARGB(255, 157, 165, 154)),
+                  child: const Text(
+                    'Instructions',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
               ),
             ),
           ],

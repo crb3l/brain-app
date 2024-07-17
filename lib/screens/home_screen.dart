@@ -7,10 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-// ignore: must_be_immutable
-class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final searchController = TextEditingController();
 
   List<CategoryModel> categories = [];
@@ -235,20 +239,4 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-
-  //FOR FUTURE IMPLEMENTATIONS
-  // Container _searchField(BuildContext context) {
-  //   return Container(
-  //       margin: const EdgeInsets.only(top: 5, bottom: 20),
-  //       width: MediaQuery.of(context).size.width,
-  //       height: 55,
-  //       // decoration: const BoxDecoration(
-  //       //   color: Colors.white,
-  //       //   borderRadius: BorderRadius.all(
-  //       //     Radius.circular(20),
-  //       //   ),
-  //       // ),
-  //       child: sampleTextFormField(
-  //           "Search here...", Icons.search, searchController));
-  // }
 }

@@ -87,13 +87,8 @@ class _ForgotScreenState extends State<ForgotScreen> {
                                 (Route<dynamic> route) => false);
                           } on FirebaseAuthException catch (e) {
                             //TODO fix errors
-                            if (e.code.toString() == 'invalid-email') {
-                              setState(() {
-                                isLoading = false;
-                                errorMessage =
-                                    'The email is not valid. Please check and try again.';
-                              });
-                            }
+                            print(e.code);
+
                             if (e.code.toString() == 'user-not-found') {
                               setState(() {
                                 isLoading = false;

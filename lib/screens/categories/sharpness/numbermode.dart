@@ -529,7 +529,7 @@ class _NumberModeState extends State<NumberMode>
                       ? 2
                       : (_margins[i][j].value[1] == (_movement * 3))
                           ? 3
-                          : -1;
+                          : -1; ////////////////GLISAREA
           if (actualCol == oldBlankPosition[1]) {
             // SAME COLUMN
             if (actualRow < oldBlankPosition[0]) {
@@ -661,7 +661,8 @@ class _NumberModeState extends State<NumberMode>
                         return true;
                       },
                       child: AlertDialog(
-                        backgroundColor: _colors[_colorCnt],
+                        backgroundColor: Colors.white,
+                        /*_colors[_colorCnt],*/
                         shape: RoundedRectangleBorder(
                           borderRadius:
                               BorderRadius.all(Radius.circular(radius)),
@@ -1233,6 +1234,7 @@ class _NumberModeState extends State<NumberMode>
                               for (int i = 0; i < _items.length; i++)
                                 for (int j = 0; j < _items[i].length; j++)
                                   RepaintBoundary(
+                                    //CASUTELE
                                     key: Key('${_items[i][j]}'),
                                     child: GestureDetector(
                                       onTap: () => _tap(i, j),
@@ -1246,14 +1248,15 @@ class _NumberModeState extends State<NumberMode>
                                           builder: (BuildContext context,
                                               List<int> value, Widget? child) {
                                             return AnimatedContainer(
-                                              duration:
-                                                  const Duration(seconds: 1),
+                                              duration: const Duration(
+                                                  seconds:
+                                                      1), // Animatiile controlate de aici
                                               curve: (_centerSquareDimension ==
                                                           0 &&
                                                       _inPosition.value != 15)
                                                   ? Curves
-                                                      .fastLinearToSlowEaseIn
-                                                  : Curves.linearToEaseOut,
+                                                      .fastLinearToSlowEaseIn //aici se glitchuieste la final, nu stiu de ce
+                                                  : Curves.easeInOutBack,
                                               width:
                                                   _squareDimension.toDouble(),
                                               height:

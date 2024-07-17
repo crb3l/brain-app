@@ -252,7 +252,7 @@ class _MemoryScreenState extends State<MemoryScreen> {
                                 ),
                                 const SizedBox(height: 36.0),
                                 AnimatedOpacity(
-                                  opacity: (scale == 1.0) ? 0.0 : 1.0,
+                                  opacity: (scale == 1.0) ? 1.0 : 1.0,
                                   duration: const Duration(milliseconds: 600),
                                   curve: Curves.easeInOut,
                                   child: Text(
@@ -291,6 +291,37 @@ class _MemoryScreenState extends State<MemoryScreen> {
                         ),
                       ),
                   ],
+                ),
+              ),
+            ),
+            Container(
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  onPressed: () => showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text('Instructions'),
+                      content: const Text(
+                          'This is a simple card matching game. Select a difficulty, and start matching pairs. Try to get a good time.\n\nThe lower the better.\nGood luck!'),
+                      actions: [
+                        TextButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: const Text('Understood'))
+                      ],
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                      shape: ContinuousRectangleBorder(
+                          borderRadius: BorderRadius.circular(5)),
+                      textStyle: const TextStyle(color: Colors.white),
+                      backgroundColor:
+                          const Color.fromARGB(255, 157, 165, 154)),
+                  child: const Text(
+                    'Instructions',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ),
             ),

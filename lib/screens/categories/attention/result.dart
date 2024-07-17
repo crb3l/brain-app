@@ -40,7 +40,7 @@ class Result extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           Text(
-            'Score ' '$resultScore' '/80',
+            'Score ' '$resultScore' '/90',
             style: const TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),

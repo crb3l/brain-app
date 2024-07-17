@@ -32,7 +32,7 @@ class CategoryModel {
 
     categories.add(
       CategoryModel(
-        name: 'Sharpness',
+        name: 'Thinking',
         iconPath: 'assets/icons/sharpness.svg',
         boxColor: const Color(0xff30b4c9),
       ),

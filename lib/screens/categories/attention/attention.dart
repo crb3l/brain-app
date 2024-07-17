@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 import './quiz.dart';
 import './result.dart';
+
+import './intro.dart';
 import './story.dart';
 
 class AttentionScreen extends StatefulWidget {
@@ -128,7 +130,14 @@ class _AttentionScreenState extends State<AttentionScreen> {
   var _questionIndex = 0;
   var _storyIndex = 0;
   var _totalScore = 0;
+  var _intro = 0;
   bool _canShowQuestions = false;
+
+  void _advanceIntro() {
+    setState(() {
+      _intro++;
+    });
+  }
 
   void _resetQuiz() {
     setState(() {
@@ -161,16 +170,12 @@ class _AttentionScreenState extends State<AttentionScreen> {
       _storyIndex++;
       _canShowQuestions = _storyIndex == _story.length - 1;
     });
-
-    // if (_storyIndex == _story.length - 1) {
-    //   setState(() {
-    //     _canShowQuestions = true;
-    //   });
-    // }
   }
 
   Widget _showQuestionOrResult() {
-    if (_storyIndex < _story.length) {
+    if (_intro == 0) {
+      return Intro(advanceIntro: _advanceIntro);
+    } else if (_storyIndex < _story.length) {
       return Story(_canShowQuestions,
           advanceStory: _incrementStoryIndex,
           story: _story,

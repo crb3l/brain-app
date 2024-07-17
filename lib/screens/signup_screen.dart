@@ -83,7 +83,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 email: _emailTextController.text,
                                 password: _passwordTextController.text)
                             .then((value) {
-                          print("Created New Account");
                           Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -286,6 +285,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
     if (formPassword == null || formPassword.isEmpty) {
       isLoading = false;
       return "Password is required.";
+    }
+    String pattern =
+        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+    RegExp regex = RegExp(pattern);
+    if (!regex.hasMatch(formPassword)) {
+      return '''
+      Password must be at least 8 characters,
+      include an uppercase letter, number and symbol.
+      ''';
     }
     return null;
   }
